@@ -62,7 +62,7 @@ void msh_cd_path(char *args)
     }
 }
 
-void msh_cd(char args, char **env, t_pathAndEnv **pEnv)
+void msh_cd(char args, char **env, t_envManager **env_p)
 {
     char    *home;
     char    *pwd;
@@ -82,12 +82,12 @@ void msh_cd(char args, char **env, t_pathAndEnv **pEnv)
         msh_cd_home(args, home);
     else if (ft_strcmp(args, "-") == 0)
         msh_cd_oldpwd(env);
-    }else 
+    else 
         msh_cd_path(args);
     old_pwd = ft_strjoin("OLDPWD=", old_pwd);
     pwd = ft_strjoin("PWD=", getcwd(cwd, sizeof(cwd)));
-    ft_export(pEnv, old_pwd);            
-    ft_export(pEnv, pwd);                
+    ft_export(env_p, old_pwd);            
+    ft_export(env_p, pwd);                
     free(old_pwd);
     free(pwd);
     set_status(0);      
